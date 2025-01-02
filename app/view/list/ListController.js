@@ -6,7 +6,7 @@ Ext.define('ExtJsTech.view.main.list.ListController', {
     onItemSelected: function (view, item) {
         // Получаем существующий store из грида
         var store = view.getStore();
-        var product = store.getById(item.get('id'));  // Ищем модель по id
+        var product = store.getById(item.get('id'));
 
         var window = Ext.create('Ext.window.Window', {
             title: `Редактирование товара ${item.get('name')}`,
@@ -123,6 +123,7 @@ Ext.define('ExtJsTech.view.main.list.ListController', {
                                         priceFieldName: item.get('price'),
                                         countFieldName: item.get('count')
                                     });
+                                    window.close();
                                 }
                             }]
                         }
@@ -132,5 +133,20 @@ Ext.define('ExtJsTech.view.main.list.ListController', {
         });
 
         window.show();
+    },
+
+    SearchingDescription: function (textfield, newValue) {
+        var grid = this.getView();
+        var store = grid.getStore();
+
+        store.clearFilter(true);
+
+        store.filter(function(record){
+            return record.get('description').toLowerCase().includes(newValue.toLowerCase());
+        });
+    },
+
+    SearchingID: function (textfield, newValue) {
+        this.getView().getStore().filter('id', newValue);
     }
 });

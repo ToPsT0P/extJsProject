@@ -25,13 +25,16 @@ Ext.define('ExtJsTech.view.main.Main', {
                         },
                         {
                             listeners: {
-                            //     TODO
+                             click: function (view){
+
+                             }
                             },
                             text: 'Таблица'
                         }
                     ]
                 },
                 {
+
                     xtype: 'treelist',
                     store: {
                         root: {
