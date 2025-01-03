@@ -3,6 +3,18 @@ Ext.define('ExtJsTech.view.main.MainController', {
 
     alias: 'controller.main',
 
+    addTable: function () {
+        var treeList = this.lookupReference('treeList');
+        var rootNode = treeList.getStore().getRoot();
+        var newTableName = 'Таблица: ' + (rootNode.childNodes.length + 1);
+
+        rootNode.appendChild({
+            text: newTableName,
+            leaf: true,
+            view: 'mainlist'
+        });
+        },
+
     logOutFunction: function () {
         localStorage.removeItem('isAuthenticated');
         window.location.reload();

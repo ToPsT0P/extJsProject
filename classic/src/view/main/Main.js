@@ -3,52 +3,48 @@ Ext.define('ExtJsTech.view.main.Main', {
     xtype: 'mainView',
 
     layout: 'border',
+    controller: 'main',
+    viewModel: 'main',
+
     items: [
         {
             region: 'west',
             xtype: 'panel',
             title: 'Навигация',
             width: 200,
-            layout: 'anchor',
-            controller: 'main',
-            viewModel: 'main',
-
+            layout: 'vbox',
             items: [
                 {
-                    buttons: [
+                    xtype: 'toolbar',
+                    docked: 'top',
+                    items: [
                         {
-                            listeners: {
-                                click: 'logOutFunction'
-                            },
-                            text: 'Выйти'
-
+                            xtype: 'button',
+                            text: 'Выйти',
+                            handler: 'logOutFunction'
                         },
                         {
-                            listeners: {
-                             click: function (view){
-
-                             }
-                            },
-                            text: 'Таблица'
+                            xtype: 'button',
+                            text: 'Таблица',
+                            handler: 'addTable'
                         }
                     ]
                 },
                 {
-
                     xtype: 'treelist',
+                    reference: 'treeList',
+                    itemId: 'treeList',
                     store: {
                         root: {
                             expanded: true,
                             children: [
-                                { text: 'Продукты1', leaf: true, view: 'mainlist' }
-
+                                { text: 'Таблица: 1', leaf: true, view: 'mainlist' }
                             ]
                         }
                     },
                     listeners: {
                         itemClick: 'itemClick'
                     }
-
                 }
             ]
         },

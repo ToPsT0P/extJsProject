@@ -3,13 +3,21 @@ Ext.define('ExtJsTech.view.main.list.ListController', {
 
     alias: 'controller.list',
 
+
+    onCellClick: function (grid, td, cellIndex, record, tr, rowIndex, e) {
+        var column = grid.getColumnManager().getColumns();
+
+        if (column[cellIndex].dataIndex === 'name') {
+            this.onItemSelected(grid, record);
+        }
+    },
+
     onItemSelected: function (view, item) {
-        // Получаем существующий store из грида
         var store = view.getStore();
         var product = store.getById(item.get('id'));
 
         var window = Ext.create('Ext.window.Window', {
-            title: `Редактирование товара ${item.get('name')}`,
+            title: 'Редактирование товара: ' + item.get('name'),
             modal: true,
             layout: 'fit',
 
@@ -81,7 +89,7 @@ Ext.define('ExtJsTech.view.main.list.ListController', {
 
                                             if (newValue !== Math.floor(newValue)) {
                                                 Ext.Msg.alert('Ошибка', 'Количество не должно быть дробным числом');
-                                                field.setValue(item.get('count'));
+                                                field.setValue(0);
                                             }
                                         }
                                     }]
@@ -106,6 +114,7 @@ Ext.define('ExtJsTech.view.main.list.ListController', {
                                     });
 
                                     store.sync();
+                                    Ext.Msg.alert('Успешно!','Вы изменили данные');
                                     window.close();
                                 }
                             }]

@@ -1,6 +1,4 @@
-/**
- * This view is an example list of people.
- */
+
 Ext.define('ExtJsTech.view.main.List', {
     extend: 'Ext.grid.Panel',
     xtype: 'mainlist',
@@ -45,10 +43,17 @@ Ext.define('ExtJsTech.view.main.List', {
                 { text: 'Наименование', dataIndex: 'name', flex: 1},
                 { text: 'Описание', dataIndex: 'description', flex: 1 },
                 { text: 'Цена', dataIndex: 'price', flex: 1 },
-                { text: 'Количество', dataIndex: 'count', flex: 1 }
+                { text: 'Количество', dataIndex: 'count', flex: 1,
+                    renderer: function(value, meta) {
+                        if (value === 0) {
+                            meta.tdCls = 'zero_count';
+                        };
+                        return value;
+                    }
+                }
     ],
 
     listeners: {
-        select: 'onItemSelected'
+        cellclick: 'onCellClick'
     }
 });
